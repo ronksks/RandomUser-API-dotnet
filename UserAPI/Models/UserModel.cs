@@ -1,9 +1,9 @@
 ﻿namespace UserAPI;
 public class User
     {
-    public List<Result> Results { get; set; }
+    public List<UserModel> Results { get; set; }
 
-    public class Result
+    public class UserModel
         {
         public string gender { get; set; }
         public Name name { get; set; }

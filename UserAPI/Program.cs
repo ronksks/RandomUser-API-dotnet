@@ -24,5 +24,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-//ApiHelper.InitializeClient();
 app.Run();
