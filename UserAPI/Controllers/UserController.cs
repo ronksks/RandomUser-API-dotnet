@@ -141,6 +141,50 @@ namespace UserAPI.Controllers
 
             }
 
+
+        [HttpGet("GetOldestUsername")]
+        public string GetOldestUser(int numOfUsers)
+            {
+            // Create an instance of HttpClient
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("http://randomuser.me/");
+
+            // Send a GET request to the API endpoint
+            var response = client.GetAsync("api/?results=" + numOfUsers).Result;
+            if (response.StatusCode == HttpStatusCode.OK)
+                {
+                DateTime oldestUserNameDate = DateTime.Now;
+                DateTime curUserDate;
+
+                int maxAgeUserID = 0;
+                int oldestUserNameAge = 0;
+                string oldestUserName = "";
+
+                var responseString = response.Content.ReadAsStringAsync().Result;
+                User randomUsers = JsonConvert.DeserializeObject<User>(responseString);
+
+                for (int i = 0; i < randomUsers.Results.Count(); i++)
+                    {
+                    curUserDate = DateTime.Parse(randomUsers.Results[i].registered.date);
+                    if (curUserDate < oldestUserNameDate)
+                        {
+                        oldestUserNameDate = curUserDate;
+                        maxAgeUserID = i;
+                        oldestUserName = randomUsers.Results[i].login.username;
+                        oldestUserNameAge = randomUsers.Results[i].registered.age;
+                        }
+                    }
+
+                return ($"The oldest username is: {oldestUserName} and it's {oldestUserNameAge} years old.");
+                }
+            else
+                {
+                throw new Exception($"Failed to retrieve user with status code {response.StatusCode}");
+                }
+
+
+            }
+
         //// POST api/<UserController>
         //[HttpPost]
         //public void Post([FromBody] string value)
