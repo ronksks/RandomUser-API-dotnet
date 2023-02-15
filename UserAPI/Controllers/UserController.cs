@@ -98,14 +98,40 @@ namespace UserAPI.Controllers
                         countryDict.Add(curCountry, 1);
                         }
                     }
+                //get the key of the max value in the dict
                 mostPopularCountry = countryDict.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
-
-                //foreach (User user in randomUsers.Results.First().location.country)
-                //    {
-                //    if (countryDict.ContainsKey(user.)
-                //    }
-
                 return ($"The most popular contry of 5000 users is: {mostPopularCountry}");
+                }
+            else
+                {
+                throw new Exception($"Failed to retrieve user with status code {response.StatusCode}");
+                }
+
+
+            }
+
+        [HttpGet("GetListOfMails")]
+        public List<string> GetListOfMails(int numOfUsers)
+            {
+            // Create an instance of HttpClient
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("http://randomuser.me/");
+
+            // Send a GET request to the API endpoint
+            var response = client.GetAsync("api/?results=" + numOfUsers).Result;
+            List<string> emailsList = new List<string>();
+            if (response.StatusCode == HttpStatusCode.OK)
+                {
+
+                var responseString = response.Content.ReadAsStringAsync().Result;
+                User randomUsers = JsonConvert.DeserializeObject<User>(responseString);
+                foreach (var result in randomUsers.Results)
+                    {
+                    emailsList.Add(result.email);
+                    }
+
+
+                return emailsList;
                 }
             else
                 {
