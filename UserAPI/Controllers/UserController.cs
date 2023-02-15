@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Cosmos;
 using Newtonsoft.Json;
 using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Text.Json;
 using JsonSerializer = Newtonsoft.Json.JsonSerializer;
@@ -42,12 +43,29 @@ namespace UserAPI.Controllers
             }
 
 
-        // GET api/<UserController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //    {
-        //    return "value";
-        //    }
+        //GET api/<UserController>/5
+        [HttpGet("RandomUsersByGender")]
+        public User GetMultipleRandomUsersWithGender(int numOfUsers, string gender)
+            {
+            // Create an instance of HttpClient
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("http://randomuser.me/");
+
+            // Send a GET request to the API endpoint
+            var response = client.GetAsync("api/?results="+numOfUsers+"&gender="+gender).Result;
+            if (response.StatusCode == HttpStatusCode.OK)
+                {
+                var responseString = response.Content.ReadAsStringAsync().Result;
+                User randomUsers = JsonConvert.DeserializeObject<User>(responseString);
+                return randomUsers;
+                }
+            else
+                {
+                throw new Exception($"Failed to retrieve user with status code {response.StatusCode}");
+                }
+
+
+            }
 
         //// POST api/<UserController>
         //[HttpPost]
