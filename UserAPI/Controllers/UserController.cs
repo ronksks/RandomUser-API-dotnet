@@ -6,39 +6,48 @@ using System.Net;
 
 
 
+
 namespace UserAPI.Controllers
     {
+
 
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
         {
+        //private readonly ILogger<UserController> _logger;
+
+        //public UserController(ILogger<UserController> logger)
+        //    {
+        //    _logger = logger;
+        //    }
 
         // GET: api/<UserController>
         [HttpGet("GetRandomUser")]
-
-
         public User GetRandomUser()
             {
-
-            // Create an instance of HttpClient
+            //Create an instance of HttpClient
             var client = new HttpClient();
             client.BaseAddress = new Uri("http://randomuser.me/");
-            // Send a GET request to the API endpoint
+
             var response = client.GetAsync("api/").Result;
             if (response.StatusCode == HttpStatusCode.OK)
                 {
                 var responseString = response.Content.ReadAsStringAsync().Result;
                 User randomUser = JsonConvert.DeserializeObject<User>(responseString);
+
+                //_logger.LogInformation("User retrieved successfully");
+                Logger.Log("User retrieved successfully.");
+
+
                 return randomUser;
                 }
             else
                 {
                 throw new Exception($"Failed to retrieve user with status code {response.StatusCode}");
                 }
-
-
             }
+
 
 
         //GET api/<UserController>/5
@@ -184,23 +193,23 @@ namespace UserAPI.Controllers
 
 
             }
-
-        //// POST api/<UserController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //    {
-        //    }
-
-        //// PUT api/<UserController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //    {
-        //    }
-
-        //// DELETE api/<UserController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //    {
-        //    }
         }
     }
+
+//// POST api/<UserController>
+//[HttpPost]
+//public void Post([FromBody] string value)
+//    {
+//    }
+
+//// PUT api/<UserController>/5
+//[HttpPut("{id}")]
+//public void Put(int id, [FromBody] string value)
+//    {
+//    }
+
+//// DELETE api/<UserController>/5
+//[HttpDelete("{id}")]
+//public void Delete(int id)
+//    {
+//    }
