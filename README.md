@@ -14,29 +14,58 @@ Before you can run the application, you'll need to provide your own RandomUser A
 Once you have your API key, open the appsettings.json file in the root of the project and replace the value of the RandomUserApiSettings:ApiKey field with your key.
 
 ## Running the application
-To run the application, open a terminal or command prompt and navigate to the root of the project. Then, run the following command:
+To run the application, open a terminal or command prompt and navigate to the root of the project. <br />
+Then, run the following command:
 dotnet run
-The application will start up and listen for requests on port 5000 by default. You can test the API by sending a GET request to the /users endpoint:
+The application will start up and listen for requests on port 5000 by default. <br />
+You can test the API by sending a GET request to the /users endpoint:<br />
 
-http://localhost:5000/users
+http://localhost:5000/users<br />
+
 ## API Documentation
-### GET /users
-Returns a list of 10 random user objects.
+This API allows you to request random user data from the external getRandomUser API. Below are the available endpoints:
+### GET /users/random
 
-Parameters
-None.
+This endpoint returns a random user data. The response includes the following fields:
 
-Response
-A JSON array of user objects, each with the following properties:
+name (object), 
+title (string), 
+first (string), 
+last (string), 
+email (string), 
+phone (string), 
+picture (object), 
+large (string), 
+medium (string), 
+thumbnail (string) 
 
-id (string) - The user's unique ID.
-name (object) - The user's name, with the following properties:
-title (string) - The user's title (e.g. "Mr", "Mrs", etc.).
-first (string) - The user's first name.
-last (string) - The user's last name.
-email (string) - The user's email address.
-phone (string) - The user's phone number.
-picture (object) - The user's profile picture, with the following properties:
-large (string) - The URL of the user's large profile picture.
-medium (string) - The URL of the user's medium profile picture.
-thumbnail (string) - The URL of the user's thumbnail profile picture.
+### GET /users/random/{count}
+This endpoint returns the specified number of random user data. The response is an array of user objects, where each object includes the same fields as described in endpoint #1.
+
+### GET /users/{id}
+
+This endpoint returns user data for a specific user ID. The response includes the same fields as described in endpoint #1.
+
+### POST /users
+
+This endpoint allows you to create a new user. The request body should include the following fields:
+
+name (object), 
+title (string), 
+first (string), 
+last (string), 
+email (string), 
+phone (string), 
+picture (object), 
+large (string), 
+medium (string), 
+thumbnail (string) <br />
+The response includes the newly created user object.
+
+### PUT /users/{id}
+
+This endpoint allows you to update an existing user. The request body should include the same fields as described in endpoint #4. The response includes the updated user object.
+
+### DELETE /users/{id}
+
+This endpoint allows you to delete a user. The response is a message indicating whether the deletion was successful or not.
