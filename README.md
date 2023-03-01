@@ -6,7 +6,7 @@ To run this application, you'll need to have the following installed:
 
 .NET 5.0
 Once you have .NET installed, you can clone this repository to your local machine:
-git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
+git clone https://github.com/ronksks/RandomUser-API-dotnet.git
 
 ## Configuration
 Before you can run the application, you'll need to provide your own RandomUser API key. You can obtain a free key by signing up on the RandomUser API website.
