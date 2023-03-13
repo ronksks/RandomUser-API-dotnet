@@ -1,5 +1,5 @@
 # Random User API Integration
-This C# and .NET implementation provides a simple API application that requests random user data from the RandomUser API.
+This C# and .NET implementation with Swagger provides a API application that requests random user data from the RandomUser API.
 
 ## Installation
 To run this application, you'll need to have the following installed:
