@@ -14,19 +14,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Configure logger
-//builder.Logging.ClearProviders();
-//builder.Logging.AddConsole(options =>
-//{
-//    options.IncludeScopes = true;
-//    options.TimestampFormat = "yyyy-MM-dd HH:mm:ss.fff ";
-//});
-
-//C: \Users\User\Development\C#\UserAPI\UserAPI\UserAPI.csproj
-//var logger = new Logger("path/to/logfile.txt");
-//logger.Log("log file was created");
-
-
 var app = builder.Build();
 
 
